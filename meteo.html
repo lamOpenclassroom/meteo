@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <link rel="stylesheet" href="meteo.css">
+</head>
+<body>
+    <div class="bloc-meteo">
+        <h1>meteo</h1>
+        <div id="container">
+            <h2 id="city"></h2>
+            <p id='message'>Click to change city</p>
+        </div>
+        
+        <form id="form" class="hidden">
+            <input type="text" id="name-city" name="user_name" placeholder="Taper votre ville"/>
+            <!-- Fonction pour changer l'état de la ville -->
+            <input type="button" value="Valider" onclick="getData()" />
+        </form>
+        <h2 id="temp"></h2>
+        <h2 id="descript"></h2>
+    </div>
+    <script type="text/javascript" src="meteo.js"></script>
+</body>
+</html>

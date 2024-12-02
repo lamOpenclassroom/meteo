@@ -1,0 +1,53 @@
+body{
+    padding: 0;
+    margin: 0;
+    background-color: #D3D3D3;
+}
+
+.bloc-meteo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30%;
+}
+
+#container{
+    visibility: visible;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+#city{
+   margin-top: 0;     
+   cursor: pointer;
+}
+
+#city:hover + #message{
+    visibility: visible;
+}
+
+#message{
+    background-color: black;
+    padding: 5px;
+    color: white;
+    margin-bottom: 0;
+    border-radius: 30px;
+    visibility: hidden;
+}
+
+.hidden{
+    display: none;
+}
+
+.visible{
+    display: block;
+}
+
+
+
+
+
+
+
+
