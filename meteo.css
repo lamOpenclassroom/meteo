@@ -1,13 +1,14 @@
 body{
     padding: 0;
     margin: 0;
+    overflow: hidden;
 }
 
 .bloc-meteo{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 30%;
+    padding: 15%;
 }
 
 #container{
@@ -44,38 +45,47 @@ body{
 }
 
 .ciel-clair{
-    background-color: aqua;
+    background-image: url(/Images/ciel_degage.jpg);
+    background-size: cover;
 }
 
 .quelques-nuages{
-    background-color: blue;
+    background-image: url(/Images/peu_de_nuage.jpg);
+    background-size: cover;
 }
 
 .nuages-epars{
-    background-color: blueviolet;
+    background-image: url(/Images/nuage_epars.jpg);
+    background-size: cover;
 }
 
 .nuages-​​​​brises{
-    background-color: burlywood;
+    background-image: url(/Images/nuages_fragmentés.jpg);
+    background-size: cover;
 }
 
 .averse{
-    background-color: cadetblue;
+    background-image: url(/Images/pluie_de_douche.jpg);
+    background-size: cover;
 }
 
 .pluie{
-    background-color: brown;
+    background-image: url(/Images/pluie.jpeg);
+    background-size: cover;
 }
 
 .neige{
-    background-color:chocolate;
+    background-image: url(/Images/neige.jpg);
+    background-size: cover;
 }
 
 .orage{
-    background-color:grey;
+    background-image: url(/Images/Orage.jpg);
+    background-size: cover;
 }
 
 .brume{
-    background-color: chartreuse;
+    background-image: url(/Images/brume.jpg);
+    background-size: cover;
 }
 
