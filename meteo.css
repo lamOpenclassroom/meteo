@@ -1,7 +1,6 @@
 body{
     padding: 0;
     margin: 0;
-    background-color: #D3D3D3;
 }
 
 .bloc-meteo{
@@ -44,10 +43,39 @@ body{
     display: block;
 }
 
+.ciel-clair{
+    background-color: aqua;
+}
 
+.quelques-nuages{
+    background-color: blue;
+}
 
+.nuages-epars{
+    background-color: blueviolet;
+}
 
+.nuages-​​​​brises{
+    background-color: burlywood;
+}
 
+.averse{
+    background-color: cadetblue;
+}
 
+.pluie{
+    background-color: brown;
+}
 
+.neige{
+    background-color:chocolate;
+}
+
+.orage{
+    background-color:grey;
+}
+
+.brume{
+    background-color: chartreuse;
+}
 
