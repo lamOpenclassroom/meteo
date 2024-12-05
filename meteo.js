@@ -9,7 +9,7 @@ const icon = document.getElementById("icone");
 let body = document.body;
 let mycity = 0;
 let codeIcone = 0;
-let cls = ["ciel-clair", "quelques-nuages","nuages-epars","nuages-​​​​brises","averse","pluie","neige","orage","brume"]
+let cls = ["ciel-clair", "quelques-nuages", "nuages-epars", "nuages-​​​​brises", "averse", "pluie", "neige", "orage", "brume"];
 
 const changeBackground = () => {
     switch (codeIcone) {
@@ -55,91 +55,72 @@ const changeBackground = () => {
 }
 
 
-const getData = () => {
+const clickCity = ()  => {
+        
+    if(form.className === "hidden"){
+        form.classList.remove("hidden") &
+        form.classList.add("visible")
+    }else{
+        form.classList.remove("visible") &
+        form.classList.add("hidden")
+        
+    }
+    
+}
+
+cities.addEventListener("click", clickCity)
+
+
+async function getData () {
     mycity = nameCity.value;
     cities.textContent = mycity;
 
     //récupère la nouvelle meteo
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${mycity}&appid=${keyApi}&units=metric&lang=fr`)
-                .then(resultat => resultat.json())
-                .then(resp => {
-                    const temp = resp.main.temp;
-                    const tempRounded = Math.round(temp)
-                    const descript = resp.weather[0].description
-                    codeIcone = resp.weather[0].icon
-                    temperature.textContent = tempRounded +"°"
-                    description.textContent = descript
-                    icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
-                    console.log(codeIcone)
-                    changeBackground()
-                })
-    
-    console.log(mycity)
+    const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${mycity}&appid=${keyApi}&units=metric&lang=fr`)
+            .then(resultat => resultat.json())
+            .then(weather => weather)
+                
+        const temp = meteo.main.temp;
+        const tempRounded = Math.round(temp)
+        const descript = meteo.weather[0].description
+        codeIcone = meteo.weather[0].icon
+        temperature.textContent = tempRounded +"°"
+        description.textContent = descript
+        icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
+        changeBackground()
 }
 
 
-function meteo(){
+async function meteo(){
 
     //récupère l'adresse ip
-    console.log(cities)
-
-    fetch("https://api.ipify.org?format=json")
-    .then(resultat => resultat.json())
-    .then(resp => {
-        const ip = resp.ip;
-        console.log(ip)
-
+    const ip = await fetch("https://api.ipify.org?format=json")
+        .then(resultat => resultat.json())
+        .then(resp => resp.ip)
     //récupère la geo avec l'ip
 
-            fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${keyGeo}&ip_address=${ip}`)
-            .then(resultat => resultat.json())
-            .then(city => {
-
-                mycity = city.city
-                cities.textContent = mycity
-
+    const city = await fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${keyGeo}&ip_address=${ip}`)
+        .then(resultat => resultat.json())
+        .then(city => city.city)
     // récupère la meteo 
 
-                fetch(`https://api.openweathermap.org/data/2.5/weather?q=${mycity}&appid=${keyApi}&units=metric&lang=fr`)
+    const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${keyApi}&units=metric&lang=fr`)
                 .then(resultat => resultat.json())
-                .then(resp => {
-                    const temp = resp.main.temp;
-                    const tempRounded = Math.round(temp)
-                    const descript = resp.weather[0].description
-                    codeIcone = resp.weather[0].icon
-                    console.log(descript)
-                    temperature.textContent = tempRounded +"°"
-                    description.textContent = descript
-                    icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
-                    changeBackground()
-                })
-            }
-        )
+                .then(weather => weather)
+          
+    cities.textContent = meteo.name
+    const temp = meteo.main.temp;
+    const tempRounded = Math.round(temp)
+    const descript = meteo.weather[0].description
+    codeIcone = meteo.weather[0].icon
+    temperature.textContent = tempRounded +"°"
+    description.textContent = descript
+    icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
 
-        
-
-        }
-    )
-   
-    const clickCity = ()  => {
-        
-        if(form.className === "hidden"){
-            form.classList.remove("hidden") &
-            form.classList.add("visible")
-        }else{
-            form.classList.remove("visible") &
-            form.classList.add("hidden")
-            
-        }
-        
-    }
-
-    cities.addEventListener("click", clickCity)
+    changeBackground()
     
 }
-
-
 meteo()
 
 
