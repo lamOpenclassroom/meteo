@@ -1,7 +1,7 @@
 body{
     padding: 0;
     margin: 0;
-    overflow: hidden;
+    height: 100vh;
 }
 
 .bloc-meteo{
@@ -89,3 +89,13 @@ body{
     background-size: cover;
 }
 
+.icon-glob{
+    position: fixed;
+    right: 10px;
+    top: 20px;
+    cursor: pointer;
+}
+
+.icon-glob:hover .list-lang{
+    display: block;
+}

@@ -6,6 +6,12 @@ const form = document.querySelector("#form");
 const keyApi = "949957f0c414e35a0c834129b1f0172b";
 const keyGeo = "cd627d9a6db94b8394ed32bf45047489";
 const icon = document.getElementById("icone");
+
+const englishLang = document.getElementsByClassName("langage-en");
+const franceLang = document.getElementsByClassName("langage-fr");
+const spanishLang = document.getElementsByClassName("langage-sp");
+let lang = "fr";
+
 let body = document.body;
 let mycity = 0;
 let codeIcone = 0;
@@ -70,14 +76,24 @@ const clickCity = ()  => {
 
 cities.addEventListener("click", clickCity)
 
+const clicEn = () => {
+    lang = "en";
+}
+
+const clicSp = () => {
+    lang = "sp";
+}
+
+const clicFr = () => {
+    lang = "fr";
+}
 
 async function getData () {
     mycity = nameCity.value;
     cities.textContent = mycity;
-
     //récupère la nouvelle meteo
 
-    const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${mycity}&appid=${keyApi}&units=metric&lang=fr`)
+    const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${mycity}&appid=${keyApi}&units=metric&lang=${lang}`)
             .then(resultat => resultat.json())
             .then(weather => weather)
                 
@@ -88,12 +104,13 @@ async function getData () {
         temperature.textContent = tempRounded +"°"
         description.textContent = descript
         icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
+        console.log(codeIcone)
         changeBackground()
 }
 
 
 async function meteo(){
-
+    console.log(englishLang)
     //récupère l'adresse ip
     const ip = await fetch("https://api.ipify.org?format=json")
         .then(resultat => resultat.json())
@@ -105,7 +122,7 @@ async function meteo(){
         .then(city => city.city)
     // récupère la meteo 
 
-    const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${keyApi}&units=metric&lang=fr`)
+    const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${keyApi}&units=metric&lang=${lang}`)
                 .then(resultat => resultat.json())
                 .then(weather => weather)
           

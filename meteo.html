@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App</title>
     <link rel="stylesheet" href="meteo.css">
+    <script src="https://kit.fontawesome.com/d2d40ec81d.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="bloc-meteo">
+        <div class="icon-glob">
+            <i class="fa-solid fa-globe fa-xl"></i>
+            <div class="list-lang hidden">
+                <p class="langage-fr" onclick="clicFr()">FR</p>
+                <p class="langage-sp" onclick="clicSp()">ES</p>
+                <p class="langage-en" onclick="clicEn()">EN</p>
+            </div>  
+        </div>
+        
         <h1>METEO</h1>
         <div id="container">
             <h2 id="city"></h2>
