@@ -7,9 +7,9 @@ const keyApi = "949957f0c414e35a0c834129b1f0172b";
 const keyGeo = "cd627d9a6db94b8394ed32bf45047489";
 const icon = document.getElementById("icone");
 
-const englishLang = document.getElementsByClassName("langage-en");
-const franceLang = document.getElementsByClassName("langage-fr");
-const spanishLang = document.getElementsByClassName("langage-sp");
+const englishLang = document.getElementById("langage-en");
+const franceLang = document.getElementById("langage-fr");
+const spanishLang = document.getElementById("langage-sp");
 let lang = "fr";
 
 let body = document.body;
@@ -18,41 +18,42 @@ let codeIcone = 0;
 let cls = ["ciel-clair", "quelques-nuages", "nuages-epars", "nuages-​​​​brises", "averse", "pluie", "neige", "orage", "brume"];
 
 const changeBackground = () => {
+    body.classList.remove(...cls)
     switch (codeIcone) {
-        case '01d' || '01n':
-            body.classList.remove(...cls);
+        case '01d':
+        case '01n':
             body.classList.add("ciel-clair");
             break;
-        case '02d' || '02n':
-            body.classList.remove(...cls);
+        case '02d':
+        case '02n':
             body.classList.add("quelques-nuages");
             break;
-        case '03d' || '03n':
-            body.classList.remove(...cls);
+        case '03d':
+        case '03n':
             body.classList.add("nuages-epars");
             break;
-        case '04d' || '04n':
-            body.classList.remove(...cls);
+        case '04d':
+        case '04n':
             body.classList.add("nuages-​​​​brises");
             break;
-        case '09d' || '09n':
-            body.classList.remove(...cls);
+        case '09d':
+        case '09n':
             body.classList.add("averse");
             break;
-        case '10d' || '10n':
-            body.classList.remove(...cls);
+        case '10d':
+        case '10n':
             body.classList.add("pluie");
             break;
-        case '11d' || '11n':
-            body.classList.remove(...cls);
+        case '11d':
+        case '11n':
             body.classList.add("neige");
             break;
-        case '13d' || '13n':
-            body.classList.remove(...cls);
+        case '13d':
+        case '13n':
             body.classList.add("orage");
             break;
-        case '50d' || '50n':
-            body.classList.remove(...cls);
+        case '50d':
+        case '50n':
             body.classList.add("brume");
             break;
         default:
@@ -76,16 +77,38 @@ const clickCity = ()  => {
 
 cities.addEventListener("click", clickCity)
 
+const deletClass = () =>{
+    if(lang == "en"){
+        englishLang.classList.add("select")
+        franceLang.classList.remove("select")
+        spanishLang.classList.remove("select")
+    }else if (lang == "sp"){
+        spanishLang.classList.add("select")
+        franceLang.classList.remove("select")
+        englishLang.classList.remove("select")
+    }else if (lang == "fr"){
+        franceLang.classList.add("select")
+        spanishLang.classList.remove("select")
+        englishLang.classList.remove("select")
+    }
+}
+
 const clicEn = () => {
     lang = "en";
+    deletClass(lang)
+    console.log(englishLang)
 }
 
 const clicSp = () => {
     lang = "sp";
+    deletClass(lang)
+    console.log(spanishLang)
 }
 
 const clicFr = () => {
     lang = "fr";
+    deletClass(lang)
+    console.log(franceLang)
 }
 
 async function getData () {
@@ -110,7 +133,6 @@ async function getData () {
 
 
 async function meteo(){
-    console.log(englishLang)
     //récupère l'adresse ip
     const ip = await fetch("https://api.ipify.org?format=json")
         .then(resultat => resultat.json())
@@ -134,11 +156,9 @@ async function meteo(){
     temperature.textContent = tempRounded +"°"
     description.textContent = descript
     icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
-
     changeBackground()
-    
 }
-meteo()
+
 
 
 
