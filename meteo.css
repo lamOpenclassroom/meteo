@@ -47,46 +47,55 @@ body{
 .ciel-clair{
     background-image: url("/Images/ciel_degage.jpg");
     background-size: cover;
+    overflow: hidden;
 }
 
 .quelques-nuages{
     background-image: url("/Images/peu_de_nuage.jpg");
     background-size: cover;
+    overflow: hidden;
 }
 
 .nuages-epars{
     background-image: url("/Images/nuage_epars.jpg");
     background-size: cover;
+    overflow: hidden;
 }
 
 .nuages-​​​​brises{
-    background-image: url("/Images/nuages_fragmentés.jpg");
+    background-image: url("/Images/nuage_fragmente.jpg");
     background-size: cover;
+    overflow: hidden;
 }
 
 .averse{
-    background-image: url("/Images/pluie_de_douche.jpg");
+    background-image: url("/Images/averse.jpg");
     background-size: cover;
+    overflow: hidden;
 }
 
 .pluie{
-    background-image: url("/Images/pluie.jpeg");
+    background-image: url("/Images/pluie.jpg");
     background-size: cover;
+    overflow: hidden;
 }
 
 .neige{
     background-image: url("/Images/neige.jpg");
     background-size: cover;
+    overflow: hidden;
 }
 
 .orage{
-    background-image: url("/Images/Orage.jpg");
+    background-image: url("/Images/orage.jpg");
     background-size: cover;
+    overflow: hidden;
 }
 
 .brume{
     background-image: url("/Images/brume.jpg");
     background-size: cover;
+    overflow: hidden;
 }
 
 .icon-glob{
