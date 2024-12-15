@@ -45,47 +45,47 @@ body{
 }
 
 .ciel-clair{
-    background-image: url("../meteo/Images/ciel_degage.jpg");
+    background-image: url("/Images/ciel_degage.jpg");
     background-size: cover;
 }
 
 .quelques-nuages{
-    background-image: url("../meteo/Images/peu_de_nuage.jpg");
+    background-image: url("/Images/peu_de_nuage.jpg");
     background-size: cover;
 }
 
 .nuages-epars{
-    background-image: url("../meteo/Images/nuage_epars.jpg");
+    background-image: url("/Images/nuage_epars.jpg");
     background-size: cover;
 }
 
 .nuages-​​​​brises{
-    background-image: url("../meteo/Images/nuages_fragmentés.jpg");
+    background-image: url("/Images/nuages_fragmentés.jpg");
     background-size: cover;
 }
 
 .averse{
-    background-image: url("../meteo/Images/pluie_de_douche.jpg");
+    background-image: url("/Images/pluie_de_douche.jpg");
     background-size: cover;
 }
 
 .pluie{
-    background-image: url("../meteo/Images/pluie.jpeg");
+    background-image: url("/Images/pluie.jpeg");
     background-size: cover;
 }
 
 .neige{
-    background-image: url("../meteo/Images/neige.jpg");
+    background-image: url("/Images/neige.jpg");
     background-size: cover;
 }
 
 .orage{
-    background-image: url("../meteo/Images/Orage.jpg");
+    background-image: url("/Images/Orage.jpg");
     background-size: cover;
 }
 
 .brume{
-    background-image: url("../meteo/Images/brume.jpg");
+    background-image: url("/Images/brume.jpg");
     background-size: cover;
 }
 

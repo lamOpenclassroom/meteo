@@ -10,12 +10,24 @@ const icon = document.getElementById("icone");
 const englishLang = document.getElementById("langage-en");
 const franceLang = document.getElementById("langage-fr");
 const spanishLang = document.getElementById("langage-sp");
-let lang = "fr";
 
+let lang = "fr";
 let body = document.body;
 let mycity = 0;
 let codeIcone = 0;
 let cls = ["ciel-clair", "quelques-nuages", "nuages-epars", "nuages-​​​​brises", "averse", "pluie", "neige", "orage", "brume"];
+
+const descriptList = {
+    clear: ["Ciel clair","Cielo despejado","Clear"],
+    someClouds: ["Quelques nuages","Algunas nubes","Some clouds"],
+    scatteredClouds: ["Nuages ​​épars","Nubes dispersas","Scattered clouds"],
+    brokenClouds: ["Nuages ​​​​brisés","Nubes rotas","Broken clouds"],
+    rainShowers: ["Averse","Ducha", "Rain showers"],
+    rain: ["Pluie","Lluvia", "Rain"],
+    thunderstorm: ["Orage","Tormenta","Thunder storm"],
+    snow: ["Neige","Nieve","Snow"],
+    mist: ["Brume","Niebla","Mist"]
+}
 
 const changeBackground = () => {
     body.classList.remove(...cls)
@@ -63,16 +75,13 @@ const changeBackground = () => {
 
 
 const clickCity = ()  => {
-        
     if(form.className === "hidden"){
         form.classList.remove("hidden") &
         form.classList.add("visible")
     }else{
         form.classList.remove("visible") &
         form.classList.add("hidden")
-        
     }
-    
 }
 
 cities.addEventListener("click", clickCity)
@@ -96,36 +105,162 @@ const deletClass = () =>{
 const clicEn = () => {
     lang = "en";
     deletClass(lang)
-    console.log(englishLang)
+    changLang()
 }
 
 const clicSp = () => {
     lang = "sp";
     deletClass(lang)
-    console.log(spanishLang)
+    changLang()
 }
 
 const clicFr = () => {
     lang = "fr";
     deletClass(lang)
-    console.log(franceLang)
+    changLang()
 }
 
+const changLang = () => {
+    if (lang == "fr") {
+        switch (codeIcone) {
+            case '01d':
+            case '01n':
+                description.textContent = descriptList.clear[0];
+                break;
+            case '02d':
+            case '02n':
+                description.textContent = descriptList.someClouds[0];
+                break;
+            case '03d':
+            case '03n':
+                description.textContent = descriptList.scatteredClouds[0];
+                break;
+            case '04d':
+            case '04n':
+                description.textContent = descriptList.brokenClouds[0];
+                break;
+            case '09d':
+            case '09n':
+                description.textContent = descriptList.rainShowers[0];
+                break;
+            case '10d':
+            case '10n':
+                description.textContent = descriptList.rain[0];
+                break;
+            case '11d':
+            case '11n':
+                description.textContent = descriptList.snow[0];
+                break;
+            case '13d':
+            case '13n':
+                description.textContent = descriptList.thunderstorm[0];
+                break;
+            case '50d':
+            case '50n':
+                description.textContent = descriptList.mist[0];
+                break;
+            default:
+                null
+        }
+    } else if (lang == "sp") {
+        switch (codeIcone) {
+            case '01d':
+            case '01n':
+                description.textContent = descriptList.clear[1];
+                break;
+            case '02d':
+            case '02n':
+                description.textContent = descriptList.someClouds[1];
+                break;
+            case '03d':
+            case '03n':
+                description.textContent = descriptList.scatteredClouds[1];
+                break;
+            case '04d':
+            case '04n':
+                description.textContent = descriptList.brokenClouds[1];
+                break;
+            case '09d':
+            case '09n':
+                description.textContent = descriptList.rainShowers[1];
+                break;
+            case '10d':
+            case '10n':
+                description.textContent = descriptList.rain[1];
+                break;
+            case '11d':
+            case '11n':
+                description.textContent = descriptList.snow[1];
+                break;
+            case '13d':
+            case '13n':
+                description.textContent = descriptList.thunderstorm[1];
+                break;
+            case '50d':
+            case '50n':
+                description.textContent = descriptList.mist[1];
+                break;
+            default:
+                null
+        }   
+        } else if (lang == "en") {
+            switch (codeIcone) {
+                case '01d':
+                case '01n':
+                    description.textContent = descriptList.clear[2];
+                    break;
+                case '02d':
+                case '02n':
+                    description.textContent = descriptList.someClouds[2];
+                    break;
+                case '03d':
+                case '03n':
+                    description.textContent = descriptList.scatteredClouds[2];
+                    break;
+                case '04d':
+                case '04n':
+                    description.textContent = descriptList.brokenClouds[2];
+                    break;
+                case '09d':
+                case '09n':
+                    description.textContent = descriptList.rainShowers[2];
+                    break;
+                case '10d':
+                case '10n':
+                    description.textContent = descriptList.rain[2];
+                    break;
+                case '11d':
+                case '11n':
+                    description.textContent = descriptList.snow[2];
+                    break;
+                case '13d':
+                case '13n':
+                    description.textContent = descriptList.thunderstorm[2];
+                    break;
+                case '50d':
+                case '50n':
+                    description.textContent = descriptList.mist[2];
+                    break;
+                default:
+                    null
+            }
+        }
+}
+    
 async function getData () {
     mycity = nameCity.value;
     cities.textContent = mycity;
     //récupère la nouvelle meteo
 
     const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${mycity}&appid=${keyApi}&units=metric&lang=${lang}`)
-            .then(resultat => resultat.json())
-            .then(weather => weather)
-                
+        .then(resultat => resultat.json())
+        .then(weather => weather)
+    
         const temp = meteo.main.temp;
         const tempRounded = Math.round(temp)
-        const descript = meteo.weather[0].description
         codeIcone = meteo.weather[0].icon
         temperature.textContent = tempRounded +"°"
-        description.textContent = descript
+        changLang()
         icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
         console.log(codeIcone)
         changeBackground()
@@ -138,7 +273,7 @@ async function meteo(){
         .then(resultat => resultat.json())
         .then(resp => resp.ip)
     //récupère la geo avec l'ip
-
+    //trouve un autre site de géolocalisation
     const city = await fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${keyGeo}&ip_address=${ip}`)
         .then(resultat => resultat.json())
         .then(city => city.city)
@@ -151,13 +286,13 @@ async function meteo(){
     cities.textContent = meteo.name
     const temp = meteo.main.temp;
     const tempRounded = Math.round(temp)
-    const descript = meteo.weather[0].description
     codeIcone = meteo.weather[0].icon
     temperature.textContent = tempRounded +"°"
-    description.textContent = descript
+    changLang()
     icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
     changeBackground()
 }
+meteo()
 
 
 
