@@ -4,7 +4,8 @@ const temperature = document.getElementById("temp");
 const description =document.getElementById("descript");
 const form = document.querySelector("#form");
 const keyApi = "949957f0c414e35a0c834129b1f0172b";
-const keyGeo = "cd627d9a6db94b8394ed32bf45047489";
+// const keyGeo = "cd627d9a6db94b8394ed32bf45047489";
+const keyGeoNew = "4035e22eb036bb"
 const icon = document.getElementById("icone");
 const title = document.getElementById('title');
 const bulle = document.getElementById("message");
@@ -297,13 +298,15 @@ async function meteo(){
     const ip = await fetch("https://api.ipify.org?format=json")
         .then(resultat => resultat.json())
         .then(resp => resp.ip)
+        console.log(ip)
     //récupère la geo avec l'ip
     //trouve un autre site de géolocalisation
-    const city = await fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${keyGeo}&ip_address=${ip}`)
+    // const city = await fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${keyGeo}&ip_address=${ip}`)
+    const city = await fetch(`https://ipinfo.io/${ip}?token=${keyGeoNew}`)
         .then(resultat => resultat.json())
         .then(city => city.city)
     // récupère la meteo 
-
+    console.log(city)
     const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${keyApi}&units=metric&lang=${lang}`)
                 .then(resultat => resultat.json())
                 .then(weather => weather)
@@ -317,6 +320,7 @@ async function meteo(){
     icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
     changeBackground()
 }
+meteo()
 
 
 
