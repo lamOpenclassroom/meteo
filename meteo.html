@@ -8,20 +8,20 @@
     <script src="https://kit.fontawesome.com/d2d40ec81d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="bloc-meteo">
-        <div class="icon-glob">
-            <i class="fa-solid fa-globe fa-xl"></i>
-            <div class="list-lang hidden">
-                <p id="langage-fr" onclick="clicFr()">FR</p>
-                <p id="langage-sp" onclick="clicSp()">ES</p>
-                <p id="langage-en" onclick="clicEn()">EN</p>
-            </div>  
-        </div>
-        
-        <h1>METEO</h1>
+    <header class="icon-glob">
+        <i class="fa-solid fa-globe fa-xl"></i>
+        <div class="list-lang hidden">
+            <p id="langage-fr" onclick="clicFr()">FR</p>
+            <p id="langage-sp" onclick="clicSp()">ES</p>
+            <p id="langage-en" onclick="clicEn()">EN</p>
+        </div> 
+    </header>
+    <div id="bloc-meteo">
+
+        <h1 id="title"></h1>
         <div id="container">
-            <h2 id="city">Paris</h2>
-            <p id='message'>Click to change city</p>
+            <h2 id="city">Toulouse</h2>
+            <p id='message'></p>
         </div>
         
         <form id="form" class="hidden">
@@ -30,7 +30,7 @@
             <input type="button" value="Valider" onclick="getData()" />
         </form>
         <h2 id="temp"></h2>
-        <img id="icone"/>
+        <img alt="icone de la meteo" id="icone"/>
         <h2 id="descript"></h2>
     </div>
     <script type="text/javascript" src="meteo.js"></script>

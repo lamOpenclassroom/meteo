@@ -6,6 +6,9 @@ const form = document.querySelector("#form");
 const keyApi = "949957f0c414e35a0c834129b1f0172b";
 const keyGeo = "cd627d9a6db94b8394ed32bf45047489";
 const icon = document.getElementById("icone");
+const title = document.getElementById('title');
+const bulle = document.getElementById("message");
+const blocMeteo = document.getElementById("bloc-meteo")
 
 const englishLang = document.getElementById("langage-en");
 const franceLang = document.getElementById("langage-fr");
@@ -15,7 +18,7 @@ let lang = "fr";
 let body = document.body;
 let mycity = 0;
 let codeIcone = 0;
-let cls = ["ciel-clair", "quelques-nuages", "nuages-epars", "nuages-​​​​brises", "averse", "pluie", "neige", "orage", "brume"];
+let cls = ["ciel-clair", "quelques-nuages", "nuages-epars", "nuages-​​​​brises", "averse", "pluie", "neige", "orage", "brume","clear-color","dark-color"];
 
 const descriptList = {
     clear: ["Ciel clair","Cielo despejado","Clear"],
@@ -29,44 +32,59 @@ const descriptList = {
     mist: ["Brume","Niebla","Mist"]
 }
 
+title.textContent = "METEO";
+    bulle.textContent = "Clic pour changer de ville";
+    franceLang.classList.add("select");
+
 const changeBackground = () => {
     body.classList.remove(...cls)
+    blocMeteo.classList.remove("back-filter")
     switch (codeIcone) {
         case '01d':
         case '01n':
+            body.classList.add("dark-color");
             body.classList.add("ciel-clair");
             break;
         case '02d':
         case '02n':
+            body.classList.add("dark-color");
             body.classList.add("quelques-nuages");
             break;
         case '03d':
         case '03n':
+            body.classList.add("dark-color");
             body.classList.add("nuages-epars");
             break;
         case '04d':
         case '04n':
+            body.classList.add("dark-color");
             body.classList.add("nuages-​​​​brises");
             break;
         case '09d':
         case '09n':
+            body.classList.add("clear-color");
             body.classList.add("averse");
             break;
         case '10d':
         case '10n':
+            body.classList.add("clear-color");
             body.classList.add("pluie");
             break;
         case '11d':
         case '11n':
+            body.classList.add("dark-color");
             body.classList.add("neige");
             break;
         case '13d':
         case '13n':
+            body.classList.add("clear-color");
             body.classList.add("orage");
             break;
         case '50d':
         case '50n':
+            body.classList.add("dark-color");
             body.classList.add("brume");
+            blocMeteo.classList.add("back-filter")
             break;
         default:
             null
@@ -122,6 +140,8 @@ const clicFr = () => {
 
 const changLang = () => {
     if (lang == "fr") {
+        title.textContent = "METEO";
+        bulle.textContent = "Clic pour changer de ville"
         switch (codeIcone) {
             case '01d':
             case '01n':
@@ -163,6 +183,8 @@ const changLang = () => {
                 null
         }
     } else if (lang == "sp") {
+        title.textContent = "TIEMPO";
+        bulle.textContent = "Clic para cambiar de ciudad"
         switch (codeIcone) {
             case '01d':
             case '01n':
@@ -204,6 +226,8 @@ const changLang = () => {
                 null
         }   
         } else if (lang == "en") {
+            title.textContent = "WEATHER";
+            bulle.textContent = "Click to change city"
             switch (codeIcone) {
                 case '01d':
                 case '01n':
@@ -268,6 +292,7 @@ async function getData () {
 
 
 async function meteo(){
+    
     //récupère l'adresse ip
     const ip = await fetch("https://api.ipify.org?format=json")
         .then(resultat => resultat.json())
@@ -292,7 +317,8 @@ async function meteo(){
     icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
     changeBackground()
 }
-meteo()
+
+
 
 
 
