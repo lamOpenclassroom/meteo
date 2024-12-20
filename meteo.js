@@ -4,14 +4,12 @@ const temperature = document.getElementById("temp");
 const description =document.getElementById("descript");
 const form = document.querySelector("#form");
 const keyApi = "949957f0c414e35a0c834129b1f0172b";
-// const keyGeo = "cd627d9a6db94b8394ed32bf45047489";
-const keyGeoNew = "4035e22eb036bb"
+const keyGeo = "4035e22eb036bb"
 const icon = document.getElementById("icone");
 const title = document.getElementById('title');
 const bulle = document.getElementById("message");
 const blocMeteo = document.getElementById("bloc-meteo");
 const country = document.getElementById("country");
-
 const englishLang = document.getElementById("langage-en");
 const franceLang = document.getElementById("langage-fr");
 const spanishLang = document.getElementById("langage-sp");
@@ -19,6 +17,7 @@ const spanishLang = document.getElementById("langage-sp");
 let lang = "fr";
 let body = document.body;
 let mycity = 0;
+let error = 0;
 let codeIcone = 0;
 let cls = ["ciel-clair", "quelques-nuages", "nuages-epars", "nuages-​​​​brises", "averse", "pluie", "neige", "orage", "brume","clear-color","dark-color"];
 let countries = 0;
@@ -277,50 +276,64 @@ const changLang = () => {
 const conditionCountry = () => {
     (countries.substr(0,3) == "Isr") ? country.textContent = "Palestine" : country.textContent = countries;
 }
-    
+
+const errorCondition = () => {
+    if(error !== 200){
+        cities.textContent = "erreur nous n'avons pas trouvé la ville";   
+    }else{
+        cities.textContent = mycity;
+    }
+}
+
 async function getData () {
     mycity = nameCity.value;
-    cities.textContent = mycity;
-    //récupère la nouvelle meteo
-
+    // récupère la nouvelle meteo
     const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${mycity}&appid=${keyApi}&units=metric&lang=${lang}`)
         .then(resultat => resultat.json())
         .then(weather => weather)
+    //code requête
+    error = meteo.cod;
+    //appel la fonction qui affiche l'erreur
+    errorCondition(meteo)
 
-        const temp = meteo.main.temp;
-        const tempRounded = Math.round(temp)
-        codeIcone = meteo.weather[0].icon
-        temperature.textContent = tempRounded +"°"
-        changLang()
-        icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
-        console.log(codeIcone)
-        changeBackground()
-        const nameCountry = await fetch(`https://restcountries.com/v3.1/alpha/${meteo.sys.country}`)
-        .then(resultat => resultat.json())
-        .then(resp => resp)
-        countries  = nameCountry[0].name.common
-        conditionCountry()
+    const temp = meteo.main.temp;
+    const tempRounded = Math.round(temp)
+    codeIcone = meteo.weather[0].icon
+    temperature.textContent = tempRounded +"°"
+    changLang()
+    icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
+    console.log(codeIcone)
+    changeBackground()
+    const nameCountry = await fetch(`https://restcountries.com/v3.1/alpha/${meteo.sys.country}`)
+    .then(resultat => resultat.json())
+    .then(resp => resp)
+    .catch(error => console.log(error))
+    countries  = nameCountry[0].name.common
+    conditionCountry()
 }
 
 
 async function meteo(){
-    
     //récupère l'adresse ip
     const ip = await fetch("https://api.ipify.org?format=json")
         .then(resultat => resultat.json())
         .then(resp => resp.ip)
+        .catch(error => console.log(error))
         console.log(ip)
     //récupère la geo avec l'ip
 
-    const city = await fetch(`https://ipinfo.io/${ip}?token=${keyGeoNew}`)
+    const city = await fetch(`https://ipinfo.io/${ip}?token=${keyGeo}`)
         .then(resultat => resultat.json())
         .then(city => city.city)
+        .catch(error => console.log(error))
     // récupère la meteo 
     console.log(city)
     const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${keyApi}&units=metric&lang=${lang}`)
-                .then(resultat => resultat.json())
-                .then(weather => weather)
-          
+        .then(resultat => resultat.json())
+        .then(weather => weather)
+        .catch(error => console.log(error))
+    //appel la fonction qui affiche l'erreur
+    errorCondition(meteo)
     cities.textContent = meteo.name
     const temp = meteo.main.temp;
     const tempRounded = Math.round(temp)
@@ -332,6 +345,7 @@ async function meteo(){
     const nameCountry = await fetch(`https://restcountries.com/v3.1/alpha/${meteo.sys.country}`)
         .then(resultat => resultat.json())
         .then(resp => resp)
+        .catch(error => console.log(error))
         country.textContent = nameCountry[0].name.common
 }
 meteo()
