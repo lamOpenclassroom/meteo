@@ -9,7 +9,8 @@ const keyGeoNew = "4035e22eb036bb"
 const icon = document.getElementById("icone");
 const title = document.getElementById('title');
 const bulle = document.getElementById("message");
-const blocMeteo = document.getElementById("bloc-meteo")
+const blocMeteo = document.getElementById("bloc-meteo");
+const country = document.getElementById("country");
 
 const englishLang = document.getElementById("langage-en");
 const franceLang = document.getElementById("langage-fr");
@@ -20,6 +21,7 @@ let body = document.body;
 let mycity = 0;
 let codeIcone = 0;
 let cls = ["ciel-clair", "quelques-nuages", "nuages-epars", "nuages-​​​​brises", "averse", "pluie", "neige", "orage", "brume","clear-color","dark-color"];
+let countries = 0;
 
 const descriptList = {
     clear: ["Ciel clair","Cielo despejado","Clear"],
@@ -271,6 +273,10 @@ const changLang = () => {
             }
         }
 }
+
+const conditionCountry = () => {
+    (countries.substr(0,3) == "Isr") ? country.textContent = "Palestine" : country.textContent = countries;
+}
     
 async function getData () {
     mycity = nameCity.value;
@@ -280,7 +286,7 @@ async function getData () {
     const meteo = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${mycity}&appid=${keyApi}&units=metric&lang=${lang}`)
         .then(resultat => resultat.json())
         .then(weather => weather)
-    
+
         const temp = meteo.main.temp;
         const tempRounded = Math.round(temp)
         codeIcone = meteo.weather[0].icon
@@ -289,6 +295,11 @@ async function getData () {
         icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
         console.log(codeIcone)
         changeBackground()
+        const nameCountry = await fetch(`https://restcountries.com/v3.1/alpha/${meteo.sys.country}`)
+        .then(resultat => resultat.json())
+        .then(resp => resp)
+        countries  = nameCountry[0].name.common
+        conditionCountry()
 }
 
 
@@ -300,8 +311,7 @@ async function meteo(){
         .then(resp => resp.ip)
         console.log(ip)
     //récupère la geo avec l'ip
-    //trouve un autre site de géolocalisation
-    // const city = await fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${keyGeo}&ip_address=${ip}`)
+
     const city = await fetch(`https://ipinfo.io/${ip}?token=${keyGeoNew}`)
         .then(resultat => resultat.json())
         .then(city => city.city)
@@ -319,6 +329,10 @@ async function meteo(){
     changLang()
     icon.src = `https://openweathermap.org/img/wn/${codeIcone}@2x.png`;
     changeBackground()
+    const nameCountry = await fetch(`https://restcountries.com/v3.1/alpha/${meteo.sys.country}`)
+        .then(resultat => resultat.json())
+        .then(resp => resp)
+        country.textContent = nameCountry[0].name.common
 }
 meteo()
 
